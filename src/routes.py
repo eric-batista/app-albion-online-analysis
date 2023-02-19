@@ -1,11 +1,9 @@
 import fastapi
+from devtools.providers.database import AsyncDatabaseProvider
 from fastapi import status as http_status
 from fastapi.responses import ORJSONResponse
 
 from src.accounting.routes import router as accounting_routing
-
-from devtools.providers.database import AsyncDatabaseProvider
-
 from src.core.database import get_default_database
 
 router = fastapi.APIRouter()

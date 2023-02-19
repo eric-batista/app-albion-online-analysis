@@ -1,13 +1,12 @@
 import fastapi
+from devtools.exceptions.handlers import add_exception_handlers
+from devtools.utils.api import EventTypes, on_event
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import ORJSONResponse
 
 from src import __version__
-from src.core import settings, database
+from src.core import database, settings
 from src.routes import router
-
-from devtools.utils.api import on_event, EventTypes
-from devtools.exceptions.handlers import add_exception_handlers
 
 
 def get_application():
@@ -33,11 +32,7 @@ def get_application():
         allow_credentials=True,
     )
 
-    on_event(
-        application,
-        EventTypes.STARTUP,
-        database.initialize_database()
-    )
+    on_event(application, EventTypes.STARTUP, database.initialize_database())
 
     add_exception_handlers(application)
 

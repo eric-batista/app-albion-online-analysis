@@ -22,5 +22,5 @@ PORT = config("APP_DEFAULT_PORT", int, 8000)
 DB_DRIVER = config("DB_DRIVER", Driver, Driver.POSTGRES)
 
 BASE_AO_PRICES_DATA_API = config("BASE_AO_PRICES_DATA_API", str)
-DEFAULT_DATABASE = 'postgres'
+DEFAULT_DATABASE = "postgres"
 default_database = from_env(DatabaseConfig, driver=DB_DRIVER)
