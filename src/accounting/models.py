@@ -1,10 +1,10 @@
 from datetime import datetime
-from typing import List
+from typing import List, Dict
 from uuid import UUID
 
 from devtools.models import Model
 
-from src.utils.enums import CitiesEnum
+from src.utils.enums import CitiesEnum, ItemsEnum
 
 
 class ItemModel(Model):
@@ -31,7 +31,7 @@ class ItemUpdateRequest(Model):
 
 
 class ItemsListRequest(Model):
-    items: List[str]
+    items: List[ItemsEnum]
 
 
 class ItemCreate(Model):
@@ -43,3 +43,21 @@ class ItemCreate(Model):
     last_price_date: datetime
     created_at: datetime
     updated_at: datetime | None = None
+
+
+class GatheringItems(Model):
+    name: str
+    quantity: int
+    city: CitiesEnum
+
+
+class CalculateGatheringRequest(Model):
+    data: List[GatheringItems]
+
+
+class GatheringItemsProfit(GatheringItems):
+    profit: int
+
+
+class CalculateGatheringResponse(Model):
+    data: List[GatheringItemsProfit]

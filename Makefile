@@ -7,7 +7,7 @@ run-backend:
 	@poetry run uvicorn src.app:app --reload
 
 run-frontend:
-	@poetry run streamlit run frontend/app.py
+	@poetry run streamlit run frontend/home.py
 
 test:
 	@poetry run pytest tests/

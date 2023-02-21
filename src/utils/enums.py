@@ -29,7 +29,7 @@ class RefinedItemsEnum(str, Enum):
     T5_STONEBLOCK = "T5_STONEBLOCK"
 
 
-class ItemsEnum(Enum):
+class ItemsEnum(str, Enum):
     _ignore_ = "member cls"
     cls = vars()
     for member in chain(list(RawItemsEnum), list(RefinedItemsEnum)):
