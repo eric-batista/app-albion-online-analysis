@@ -1,5 +1,6 @@
 import contextlib
 from datetime import datetime
+from typing import List
 from uuid import uuid4
 
 from devtools.providers.database.asyncio import (AsyncContext,
@@ -8,9 +9,9 @@ from devtools.providers.database.filters import And, Field, Filter, OrderBy
 from devtools.providers.database.helpers.async_ import AsyncRepository
 
 from src.accounting.entities import ItemsHistoryEntity
-from src.accounting.models import ItemCreate, ItemCreateRequest, ItemModel, GatheringItems
+from src.accounting.models import (GatheringItems, ItemCreate,
+                                   ItemCreateRequest, ItemModel)
 
-from typing import List
 
 class ItemsHistoryRepository:
     def __init__(self, context: AsyncContext):
@@ -48,5 +49,10 @@ class ItemsHistoryRepository:
         return result.get()
 
     async def get_all_by_item(self, item: GatheringItems | ItemCreateRequest):
-        result = await self._repo.search(self._context, Field("name", item.name), Field("city", item.city), order_by=OrderBy('created_at', order='desc'))
+        result = await self._repo.search(
+            self._context,
+            Field("name", item.name),
+            Field("city", item.city),
+            order_by=OrderBy("created_at", order="desc"),
+        )
         return result.get()

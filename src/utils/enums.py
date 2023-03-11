@@ -20,6 +20,22 @@ class RawItemsEnum(str, Enum):
     T3_ROCK = "T3_ROCK"
     T4_ROCK = "T4_ROCK"
     T5_ROCK = "T5_ROCK"
+    T2_ORE = "T2_ORE"
+    T3_ORE = "T3_ORE"
+    T4_ORE = "T4_ORE"
+    T5_ORE = "T5_ORE"
+    T2_WOOD = "T2_WOOD"
+    T3_WOOD = "T3_WOOD"
+    T4_WOOD = "T4_WOOD"
+    T5_WOOD = "T5_WOOD"
+    T2_FIBER = "T2_FIBER"
+    T3_FIBER = "T3_FIBER"
+    T4_FIBER = "T4_FIBER"
+    T5_FIBER = "T5_FIBER"
+    T2_HIDE = "T2_HIDE"
+    T3_HIDE = "T3_HIDE"
+    T4_HIDE = "T4_HIDE"
+    T5_HIDE = "T5_FIBER"
 
 
 class RefinedItemsEnum(str, Enum):
@@ -27,6 +43,22 @@ class RefinedItemsEnum(str, Enum):
     T3_STONEBLOCK = "T3_STONEBLOCK"
     T4_STONEBLOCK = "T4_STONEBLOCK"
     T5_STONEBLOCK = "T5_STONEBLOCK"
+    T2_CLOTH = "T2_CLOTH"
+    T3_CLOTH = "T3_CLOTH"
+    T4_CLOTH = "T4_CLOTH"
+    T5_CLOTH = "T5_CLOTH"
+    T2_LEATHER = "T2_LEATHER"
+    T3_LEATHER = "T3_LEATHER"
+    T4_LEATHER = "T4_LEATHER"
+    T5_LEATHER = "T5_LEATHER"
+    T2_METALBAR = "T2_METALBAR"
+    T3_METALBAR = "T3_METALBAR"
+    T4_METALBAR = "T4_METALBAR"
+    T5_METALBAR = "T5_METALBAR"
+    T2_PLANKS = "T2_PLANKS"
+    T3_PLANKS = "T3_PLANKS"
+    T4_PLANKS = "T4_PLANKS"
+    T5_PLANKS = "T5_PLANKS"
 
 
 class ItemsEnum(str, Enum):
@@ -34,3 +66,7 @@ class ItemsEnum(str, Enum):
     cls = vars()
     for member in chain(list(RawItemsEnum), list(RefinedItemsEnum)):
         cls[member.name] = member.value
+
+    @classmethod
+    def list(cls):
+        return list(map(lambda c: c.value, cls))

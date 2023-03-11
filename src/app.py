@@ -32,7 +32,11 @@ def get_application():
         allow_credentials=True,
     )
 
-    on_event(application, EventTypes.STARTUP, database.initialize_database())
+    on_event(
+        application,
+        EventTypes.STARTUP,
+        database.initialize_database(),
+    )
 
     add_exception_handlers(application)
 
