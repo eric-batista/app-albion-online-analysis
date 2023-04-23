@@ -1,7 +1,7 @@
 version: '3.8'
 services:
   postgres:
-    container_name: "postgres-albion-accounting"
+    container_name: "postgres-albion-analysis"
     image: postgres
     environment:
       POSTGRES_USER: postgres

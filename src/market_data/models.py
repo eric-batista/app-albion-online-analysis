@@ -26,10 +26,6 @@ class ItemCreateRequest(Model):
     last_price_date: datetime
 
 
-class ItemUpdateRequest(Model):
-    pass
-
-
 class ItemsListRequest(Model):
     items: List[ItemsEnum]
 

@@ -3,11 +3,13 @@ from devtools.providers.database import AsyncDatabaseProvider
 from fastapi import status as http_status
 from fastapi.responses import ORJSONResponse
 
-from src.accounting.routes import router as accounting_routing
 from src.core.database import get_default_database
+from src.market_data.routes import router as accounting_routing
+from src.player_stats.routes import router as player_stats_routing
 
 router = fastapi.APIRouter()
 router.include_router(accounting_routing)
+router.include_router(player_stats_routing)
 
 
 @router.get("/health-check")

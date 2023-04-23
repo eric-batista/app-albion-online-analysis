@@ -8,15 +8,15 @@ from devtools.providers.database.asyncio import (AsyncContext,
 from devtools.providers.database.filters import And, Field, Filter, OrderBy
 from devtools.providers.database.helpers.async_ import AsyncRepository
 
-from src.accounting.entities import ItemsHistoryEntity
-from src.accounting.models import (GatheringItems, ItemCreate,
-                                   ItemCreateRequest, ItemModel)
+from src.market_data.entities import ItemsHistory
+from src.market_data.models import (GatheringItems, ItemCreate,
+                                    ItemCreateRequest, ItemModel)
 
 
 class ItemsHistoryRepository:
     def __init__(self, context: AsyncContext):
         self._context = context
-        self._repo = AsyncRepository(ItemsHistoryEntity, ItemModel)
+        self._repo = AsyncRepository(ItemsHistory, ItemModel)
 
     @classmethod
     def from_provider(cls, provider: AsyncDatabaseProvider):
@@ -42,7 +42,7 @@ class ItemsHistoryRepository:
     async def get(self, item: ItemCreateRequest | GatheringItems) -> List[ItemModel]:
         clause = And(Field("name", item.name), Field("city", item.city))
         result = await self._repo.get(context=self._context, clause=clause)
-        return result.get()
+        return [result.get()]
 
     async def get_all(self):
         result = await self._repo.search(context=self._context)

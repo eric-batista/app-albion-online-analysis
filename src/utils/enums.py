@@ -2,6 +2,25 @@ from enum import Enum
 from itertools import chain
 
 
+class ItemTier(str, Enum):
+    TIER_1 = "T1"
+    TIER_2 = "T2"
+    TIER_3 = "T3"
+    TIER_4 = "T4"
+    TIER_5 = "T5"
+    TIER_6 = "T6"
+    TIER_7 = "T7"
+    TIER_8 = "T8"
+
+
+class ItemQuality(Enum):
+    pass
+
+
+class ItemEnchantment(Enum):
+    pass
+
+
 class CitiesEnum(str, Enum):
     CAERLEON = "Caerleon"
     BRIDGEWATCH = "Bridgewatch"
@@ -65,7 +84,7 @@ class ItemsEnum(str, Enum):
     _ignore_ = "member cls"
     cls = vars()
     for member in chain(list(RawItemsEnum), list(RefinedItemsEnum)):
-        cls[member.name] = member.value
+        cls[member.name] = member.value  # type: ignore
 
     @classmethod
     def list(cls):

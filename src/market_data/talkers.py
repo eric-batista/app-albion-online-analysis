@@ -3,8 +3,8 @@ from typing import List
 import aiohttp
 from devtools.exceptions import NotFoundError
 
-from src.accounting.models import ItemsListRequest
 from src.core import settings
+from src.market_data.models import ItemsListRequest
 from src.utils.helpers import filter_cities
 from src.utils.models import AlbionOnlineDataResponse
 

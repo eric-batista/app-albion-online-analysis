@@ -5,7 +5,7 @@ from devtools.providers.database.types import GUUID
 from src.utils.enums import CitiesEnum
 
 
-class ItemsEntity(Entity):
+class Items(Entity):
     id = sa.Column(GUUID(), primary_key=True, index=True, nullable=False)
     name = sa.Column(sa.Text(), index=True)
     city = sa.Column(sa.Enum(CitiesEnum), index=True)
@@ -16,7 +16,7 @@ class ItemsEntity(Entity):
     updated_at = sa.Column(sa.DateTime())
 
 
-class ItemsHistoryEntity(Entity):
+class ItemsHistory(Entity):
     id = sa.Column(GUUID(), primary_key=True, index=True, nullable=False)
     name = sa.Column(sa.Text(), index=True)
     city = sa.Column(sa.Enum(CitiesEnum), index=True)
