@@ -14,11 +14,18 @@ class ItemTier(str, Enum):
 
 
 class ItemQuality(Enum):
-    pass
+    NORMAL = "Normal"
+    GOOD = "Good"
+    OUTSTANDING = "Outstanding"
+    EXCELLENT = "Excellent"
+    MASTERPIECE = "Masterpiece"
 
 
-class ItemEnchantment(Enum):
-    pass
+class ItemEnchantment(str, Enum):
+    UNCOMMON = "Uncommon"
+    RARE = "Rare"
+    EXCEPTIONAL = "Exceptional"
+    PRISTINE = "Pristine"
 
 
 class CitiesEnum(str, Enum):

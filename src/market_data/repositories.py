@@ -23,9 +23,6 @@ class ItemsHistoryRepository:
         return cls(provider.context())
 
     async def create(self, item: ItemCreateRequest):
-        # with contextlib.suppress(Exception):
-        #     return await self.get(item=item)
-
         new_item = ItemCreate(id=uuid4(), created_at=datetime.now(), **item.dict())
         if new_item.last_buy_price == 0 and new_item.last_sell_price == 0:
             return

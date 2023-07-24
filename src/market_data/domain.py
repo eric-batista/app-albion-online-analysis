@@ -7,13 +7,14 @@ from src.market_data import models
 from src.market_data.repositories import ItemsHistoryRepository
 from src.market_data.talkers import get_item_price_from_ao_prices_data
 from src.utils.enums import ItemsEnum
+from src.utils.models import AlbionOnlineDataResponse
 
 
 class GetItemsInfosFromAOData:
     def __init__(
-        self, items: models.ItemsListRequest, default_database: AsyncDatabaseProvider
+        self, payload: models.ItemsListRequest, default_database: AsyncDatabaseProvider
     ):
-        self._items = items
+        self._items = payload
         self._default_database = default_database.context()
         self._repository = ItemsHistoryRepository(self._default_database)
 
@@ -34,6 +35,23 @@ class GetItemsInfosFromAOData:
             )
             for item in ao_data_response
         ]
+
+
+class GetBestPlaceToSellItem:
+    def __init__(self, item_id: str, default_database: AsyncDatabaseProvider):
+        self._item_id = item_id
+        self._default_database = default_database.context()
+        self._repository = ItemsHistoryRepository(self._default_database)
+
+    async def _get_item_info(self):
+        return await get_item_price_from_ao_prices_data(self._item_id)
+
+    def _get_highest_sell_price(self, item_info: List[AlbionOnlineDataResponse]):
+        return max(item_info, key=lambda x: x.buy_price_max)
+
+    async def execute(self):
+        item_info = await self._get_item_info()
+        return self._get_highest_sell_price(item_info)
 
 
 class ListItemsInfosHistory:
@@ -110,7 +128,7 @@ class UpdateAllItemsPrices:
     async def execute(self):
         if not self._payload:
             items = ItemsEnum.list()
-            ao_data_request = models.ItemsListRequest(items=items)
+            ao_data_request = models.ItemsListRequest.parse_obj(items)
             ao_data_response = await get_item_price_from_ao_prices_data(ao_data_request)
             for item_info in ao_data_response:
                 await self._update_item_price(item_info)

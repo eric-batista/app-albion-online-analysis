@@ -10,9 +10,12 @@ from src.utils.models import AlbionOnlineDataResponse
 
 
 async def get_item_price_from_ao_prices_data(
-    items_code: ItemsListRequest, location: str | None = None
+    items_code: ItemsListRequest | str, location: str | None = None
 ) -> List[AlbionOnlineDataResponse]:
-    splited_items = ",".join(items_code.items)
+    if not isinstance(items_code, str):
+        splited_items = ",".join(items_code.items)
+    else:
+        splited_items = items_code
     async with aiohttp.ClientSession() as session:
         async with session.get(
             f"{settings.BASE_AO_PRICES_DATA_API}/{splited_items}.json?locations={location}"

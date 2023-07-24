@@ -6,17 +6,14 @@ from devtools.models import Model
 from src.utils.enums import ItemTier
 
 
-class PlayerStatsModel(Model):
-    id: UUID
-
-
-class PlayerStatsCreate(Model):
-    id: UUID
+class BaseRequestModel(Model):
     name: str
+    level: int
+    max_tier_enable: ItemTier
 
 
-class PlayerStatsPayload(Model):
-    name: str
+class BaseCreateModel(BaseRequestModel):
+    id: UUID
 
 
 class CombatStatsModel(Model):
@@ -24,9 +21,13 @@ class CombatStatsModel(Model):
     name: str
 
 
-class CombatStatsCreate(Model):
+class CombatStatsCreate(BaseCreateModel):
     id: UUID
     name: str
+
+
+class CombatStatsRequest(BaseRequestModel):
+    pass
 
 
 class CraftingSpecialistModel(Model):
@@ -48,3 +49,22 @@ class CraftingStatsModel(Model):
     max_tier_enable: ItemTier
     crafting_specialist_id: UUID
     crafting_specialist: CraftingSpecialistModel
+
+
+class CraftingStatsCreate(BaseCreateModel):
+    pass
+
+
+class PlayerStatsModel(Model):
+    id: UUID
+
+
+class PlayerStatsCreate(Model):
+    id: UUID
+    name: str
+
+
+class PlayerStatsPayload(Model):
+    name: str
+    combat_stats: CombatStatsCreate
+    crafting_stats: CraftingStatsCreate

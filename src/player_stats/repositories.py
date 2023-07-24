@@ -33,9 +33,14 @@ class CombatStatsRepository:
         )
 
     async def create(
-        self, combat_info: models.PlayerStatsPayload
+        self, combat_info: models.CombatStatsCreate
     ) -> models.CombatStatsModel:
-        combat_stats = models.CombatStatsCreate(id=uuid4(), name=combat_info.name)
+        combat_stats = models.CombatStatsCreate(
+            id=uuid4(),
+            name=combat_info.name,
+            level=combat_info.level,
+            max_tier_enable=combat_info.max_tier_enable,
+        )
         result = await self._repo.create(context=self._context, payload=combat_stats)
         return result.get()
 

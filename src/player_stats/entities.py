@@ -94,8 +94,8 @@ class CraftingStats(Entity):
     name = sa.Column(sa.Text(), index=True, nullable=False)
     level = sa.Column(sa.Integer(), nullable=False)
     max_tier_enable = sa.Column(sa.Enum(ItemTier), nullable=False)
+    bonus_item_focus = sa.Column(sa.DECIMAL, default=Decimal(0.0))
     bonus_class_focus = sa.Column(sa.DECIMAL, default=Decimal(0.0))
-    bonus_class_quality = sa.Column(sa.DECIMAL, default=Decimal(0.0))
     player_stats_id = sa.Column(GUUID(), sa.ForeignKey("player_stats.id"))
     player_stats_stats = relationship("PlayerStats", back_populates="crafting_stats")
 
@@ -170,7 +170,7 @@ class PlayerStats(Entity):
     harvester_stats = relationship("HarvesterStats", lazy="selectin")
     animal_creation_stats = relationship("AnimalCreationStats", lazy="selectin")
     herbalist_stats = relationship("HerbalistStats", lazy="selectin")
-    sous_chef_stats = relationship("CookingStats", lazy="selectin")
+    sous_chef_stats = relationship("SousChefStats", lazy="selectin")
     alchemy_stats = relationship("AlchemyStats", lazy="selectin")
     crafting_stats = relationship("CraftingStats", lazy="selectin")
     refining_stats = relationship("RefiningStats", lazy="selectin")
